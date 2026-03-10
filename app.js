@@ -151,10 +151,14 @@ async function searchMessages() {
     try {
       // force=1 で最新100件取得
       const messages = await chatworkApi('GET', `rooms/${room.room_id}/messages?force=1`);
+      console.log(`[${room.name}] レスポンス:`, typeof messages, Array.isArray(messages) ? messages.length + '件' : messages);
       if (Array.isArray(messages)) {
         const targets = messages.filter(m =>
           m.body.includes('追加')
         );
+        if (targets.length > 0) {
+          console.log(`[${room.name}] ヒット: ${targets.length}件`);
+        }
         targets.forEach(m => {
           foundMessages.push({
             roomId: room.room_id,
@@ -168,7 +172,7 @@ async function searchMessages() {
         });
       }
     } catch (err) {
-      console.warn(`Room ${room.name}: ${err.message}`);
+      console.error(`[${room.name}] エラー:`, err.message);
     }
 
     // レートリミット対策：少し待つ
