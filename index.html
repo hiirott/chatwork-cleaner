@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatwork Cleaner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Chatwork Cleaner</h1>
+    <p class="subtitle">「メンバーを追加しました」メッセージを検索・削除</p>
+
+    <!-- Step 1: APIトークン入力 -->
+    <div id="step-token" class="step">
+      <h2>1. APIトークンを入力</h2>
+      <div class="input-group">
+        <input type="password" id="api-token" placeholder="Chatwork APIトークン">
+        <button id="btn-connect" onclick="connect()">接続</button>
+      </div>
+      <div id="user-info" class="hidden"></div>
+    </div>
+
+    <!-- Step 2: ルーム一覧 -->
+    <div id="step-rooms" class="step hidden">
+      <h2>2. グループチャット一覧</h2>
+      <div class="controls">
+        <button onclick="selectAllRooms()">全選択</button>
+        <button onclick="deselectAllRooms()">全解除</button>
+        <span id="room-count"></span>
+      </div>
+      <div id="room-list" class="room-list"></div>
+      <button id="btn-search" class="primary" onclick="searchMessages()">選択したルームからメッセージ検索</button>
+    </div>
+
+    <!-- Step 3: メッセージ検索結果 -->
+    <div id="step-messages" class="step hidden">
+      <h2>3. 削除対象メッセージ</h2>
+      <div id="search-progress" class="hidden">
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="progress-text"></span>
+      </div>
+      <div class="controls">
+        <button onclick="selectAllMessages()">全選択</button>
+        <button onclick="deselectAllMessages()">全解除</button>
+        <span id="message-count"></span>
+      </div>
+      <div id="message-list" class="message-list"></div>
+      <button id="btn-delete" class="danger" onclick="deleteMessages()">選択したメッセージを削除</button>
+    </div>
+
+    <!-- Step 4: 結果 -->
+    <div id="step-result" class="step hidden">
+      <h2>4. 削除結果</h2>
+      <div id="result-content"></div>
+    </div>
+
+    <!-- ステータス -->
+    <div id="status" class="status hidden"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
