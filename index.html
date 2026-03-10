@@ -24,6 +24,7 @@
     <!-- Step 2: ルーム一覧 -->
     <div id="step-rooms" class="step hidden">
       <h2>2. グループチャット一覧</h2>
+      <input type="text" id="room-filter" placeholder="ルーム名で絞り込み..." oninput="filterRooms()">
       <div class="controls">
         <button onclick="selectAllRooms()">全選択</button>
         <button onclick="deselectAllRooms()">全解除</button>
