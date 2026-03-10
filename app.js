@@ -154,7 +154,7 @@ async function searchMessages() {
       if (Array.isArray(messages)) {
         const targets = messages.filter(m =>
           m.account.account_id === myAccountId &&
-          m.body.includes('が追加されました')
+          m.body.includes('を追加しました')
         );
         targets.forEach(m => {
           foundMessages.push({
