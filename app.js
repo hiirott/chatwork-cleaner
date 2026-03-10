@@ -95,20 +95,25 @@ async function loadRooms() {
 
 function filterRooms() {
   const keyword = document.getElementById('room-filter').value.toLowerCase();
+  let visible = 0;
   document.querySelectorAll('#room-list .room-item').forEach(item => {
     const name = item.querySelector('.room-name').textContent.toLowerCase();
-    item.style.display = name.includes(keyword) ? '' : 'none';
+    if (name.includes(keyword)) {
+      item.classList.remove('filtered-out');
+      visible++;
+    } else {
+      item.classList.add('filtered-out');
+    }
   });
-  const visible = document.querySelectorAll('#room-list .room-item:not([style*="display: none"])').length;
   document.getElementById('room-count').textContent = `${visible}/${rooms.length}件`;
 }
 
 function selectAllRooms() {
-  document.querySelectorAll('#room-list .room-item:not([style*="display: none"]) input[type="checkbox"]').forEach(cb => cb.checked = true);
+  document.querySelectorAll('#room-list .room-item:not(.filtered-out) input[type="checkbox"]').forEach(cb => cb.checked = true);
 }
 
 function deselectAllRooms() {
-  document.querySelectorAll('#room-list .room-item:not([style*="display: none"]) input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#room-list .room-item:not(.filtered-out) input[type="checkbox"]').forEach(cb => cb.checked = false);
 }
 
 // --- Step 3: メッセージ検索 ---

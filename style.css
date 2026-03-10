@@ -50,6 +50,10 @@ h1 {
   margin-bottom: 12px;
 }
 
+.filtered-out {
+  display: none !important;
+}
+
 .hidden {
   display: none !important;
 }
