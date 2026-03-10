@@ -153,8 +153,7 @@ async function searchMessages() {
       const messages = await chatworkApi('GET', `rooms/${room.room_id}/messages?force=1`);
       if (Array.isArray(messages)) {
         const targets = messages.filter(m =>
-          m.account.account_id === myAccountId &&
-          m.body.includes('を追加しました')
+          m.body.includes('追加')
         );
         targets.forEach(m => {
           foundMessages.push({
@@ -163,6 +162,8 @@ async function searchMessages() {
             messageId: m.message_id,
             body: m.body,
             sendTime: m.send_time,
+            accountId: m.account.account_id,
+            accountName: m.account.name,
           });
         });
       }
@@ -194,7 +195,7 @@ function renderMessages() {
         <div class="message-info">
           <div class="message-room">${escapeHtml(m.roomName)}</div>
           <div class="message-body">${escapeHtml(m.body)}</div>
-          <div class="message-date">${formatDate(m.sendTime)}</div>
+          <div class="message-date">${formatDate(m.sendTime)} / 投稿者: ${escapeHtml(m.accountName)} (ID:${m.accountId})</div>
         </div>
       </div>
     `).join('');
